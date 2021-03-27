@@ -1,64 +1,70 @@
 15-122 Principles of Imperative Computation
-Clac
+Huffman coding
 
 ==========================================================
 
 Files you won't modify:
-   lib/stack_of_int.c0             - Stacks containing integers
-   lib/queue_of_string.c0          - Queues containing strings
-   lib/stack_of_queue_of_string.c0 - Stacks containing queues of strings
-   lib/tokenize.c0                 - Library for populating queues of strings
-   lib/dict.c0                     - Dictionaries
-   clac-main.c0                    - Runs clac read-eval-print loop (REPL)
+   lib/contracts.h     - Contracts for C
+   lib/xalloc.{c,h}    - NULL-checking allocation
+   lib/file_io.{c,h}   - basic file I/O
+   lib/heap.{c,h}      - Priority queues, implemented as heaps
 
-Files you will modify:
-   clac.c0               - Clac interpreter
-   clac-test.c0          - Testing the clac implementation (Optional)
+   data/source/*       - sample source files
+   data/freq/*         - sample frequency files
+   data/htree/*        - sample Huffman trees
+   data/binascii/*     - sample Huffman codes
+   data/compressed/*   - sample compressed files
 
-Files you will create:
-   log.clac              - Clac integer logarithm program (for last task only)
+   freqtable.{c,h}     - frequency table definitions and operations
+   htree.{c,h}         - Huffman tree definitions and operations
+   encode.{c,h}        - top-level text encoding/decoding
+   bitpacking.{c,h}    - bit packing utilities
+   compress.{c,h}      - top-level file compression/uncompression
+   main.c              - Application top-level
+   Makefile            - Utility for building executables
 
-Data:
-   def/demo-fail.clac    - An example program that should call to error()
-   def/demo-print.clac   - An example program that should print things out
-   def/square.clac       - Squaring numbers
-   def/sum.clac          - Summing a series of numbers
-   def/fact.clac         - Factorial, with some Clac unit tests
-   def/fib.clac          - Fibonacci example from the writeup
-   def/fibalt.clac       - Another way of implementing fibonacci
+
+Files you may extend:
+   huffman.c           - Tasks 1-7
+   test-htree.c        - test file for is_htree functions (no need to submit)
+
+Files you will submit:
+EITHER (if doing Tasks 8)
+  huffman.c.hip
+OR (if not doing Task 8)
+  huffman.c
 
 ==========================================================
 
-The code that you're given will already compile and pass the given
-tests in clac-test.c0.
+Compiling your is_htree functions and tests
+   % make htree
+   % ./htree-test
 
-Running the reference implementation of the Claculator (Andrew Linux only):
-   % clac-ref def/demo-print.clac
-   % clac-ref -trace
-   clac>> 8 5 4 - + dup
-   clac>> print print
-   clac>> quit
+Compiling and running your other functions (with -DDEBUG)
+   % make
+   % ./huff-safe <parameters>
+   % valgrind ./huff-safe <parameters>
 
-Compiling and running the Claculator:
-   % cc0 -d -w -o clac lib/*.c0 clac.c0 clac-main.c0
-   % ./clac
-   % ./clac def/demo-print.clac
+Compiling and running your other functions (without -DDEBUG)
+   % make fast
+   % ./huff-fast <parameters>
+   % valgrind ./huff-fast <parameters>
 
-Testing your Clac implementation:
-   % cc0 -d -w -o clac-test lib/*.c0 clac.c0 clac-test.c0
-   % ./clac-test
-   % ./clac-test err1
-   % ./clac-test err2
-   % ./clac-test err3     # These two tests highlight a bug...
-   % ./clac-test err4     # ...in the code you were given
-   ...
+For a summary of the valid parameters, run
+  % ./huff-safe
+(huff-fast accepts the same parameters)
+See writeup for which <parameters> to supply to test each function.
 
 ==========================================================
 
 Submitting with Andrew handin script:
-   % handin clac clac.c0 log.clac
+EITHER (task 8)
+   % handin huffman huffman.c.hip
+OR (NO task 8)
+   % handin huffman huffman.c
 
 Creating a tarball to submit with autolab.andrew.cmu.edu web interface:
-   % tar -czvf handin.tgz clac.c0 log.clac
-
-You may omit log.clac until you do the last task.
+EITHER (task 8)
+   % tar -czvf handin.tgz huffman.c.hip
+OR (NO task 8)
+   % tar -czvf handin.tgz huffman.c
